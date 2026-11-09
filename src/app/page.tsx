@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ThemeToggle } from "@/components/theme";
 import { Wordmark } from "@/components/wordmark";
 import { ArrowRight, FileCheck2, FlaskConical, Globe2, ShieldCheck } from "lucide-react";
@@ -53,11 +54,11 @@ export default function LandingPage() {
               No therapeutic claims. No human or veterinary use.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
-              <a href="#approach" className="inline-flex items-center gap-2 rounded-md bg-cobalt px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90">
-                How eligibility works <ArrowRight size={16} aria-hidden />
-              </a>
-              <a href="#evidence" className="inline-flex items-center gap-2 rounded-md border border-border-strong bg-surface px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-cobalt">
-                See the evidence model
+              <Link href="/materials" className="inline-flex items-center gap-2 rounded-md bg-cobalt px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90">
+                Browse materials <ArrowRight size={16} aria-hidden />
+              </Link>
+              <a href="#approach" className="inline-flex items-center gap-2 rounded-md border border-border-strong bg-surface px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-cobalt">
+                How eligibility works
               </a>
             </div>
           </div>
