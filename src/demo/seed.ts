@@ -2,7 +2,6 @@ import { eq } from "drizzle-orm";
 import type { Database } from "@/db/client";
 import * as schema from "@/db/schema";
 import type { ApprovalStatus } from "@/domain/enums";
-import { toMinor } from "@/domain/money";
 import { hashPassword } from "@/server/auth/password";
 import { getStorage, sha256Hex, syntheticDocument } from "@/server/storage";
 import { CANDIDATE_SEEDS } from "./candidates";

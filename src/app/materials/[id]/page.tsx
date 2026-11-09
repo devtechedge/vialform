@@ -9,7 +9,7 @@ import { AddToBasketForm, SaveDossierForm } from "@/components/workspace-forms";
 import { getDossier, jurisdictionLabel } from "@/server/catalogue";
 import { checkEligibility } from "@/server/compliance";
 import { getSessionUser } from "@/server/auth/sessions";
-import { FILE_TOKEN_TTL_MS, signFileToken } from "@/server/files";
+import { signedDownloadUrl } from "@/server/files";
 
 export const dynamic = "force-dynamic";
 
@@ -35,7 +35,6 @@ export default async function DossierPage({ params, searchParams }: { params: Pr
   const { product, aliases, candidate, approval, lots, documents } = dossier;
   const eligibility = await checkEligibility(id, country);
   const user = await getSessionUser();
-  const expires = Date.now() + FILE_TOKEN_TTL_MS;
 
   return (
     <SiteShell>
@@ -155,7 +154,7 @@ export default async function DossierPage({ params, searchParams }: { params: Pr
                             <td className="py-2 pr-4 text-ink-soft">{doc.method ?? "n/a"}{doc.assayDate ? ` · ${doc.assayDate.toISOString().slice(0, 10)}` : ""}</td>
                             <td className="mono py-2 pr-4 text-[11px] text-muted">{doc.sha256.slice(0, 12)}…</td>
                             <td className="py-2 text-right">
-                              <a href={`/api/files/${doc.id}?token=${signFileToken(doc.id, expires)}`} className="inline-flex items-center gap-1 text-sm font-medium text-cobalt hover:underline">
+                              <a href={signedDownloadUrl(doc.id)} className="inline-flex items-center gap-1 text-sm font-medium text-cobalt hover:underline">
                                 <Download size={14} aria-hidden /> Download
                               </a>
                             </td>

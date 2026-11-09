@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { SiteShell } from "@/components/site-shell";
-import { ApprovalBadge, Badge, Card, DemoBanner, EmptyState, PageHeader } from "@/components/ui";
+import { Badge, Card, DemoBanner, EmptyState, PageHeader } from "@/components/ui";
 import { RemoveBasketForm, SubmitRfqForm, UploadPoForm } from "@/components/workspace-forms";
 import { getSessionContext } from "@/server/auth/sessions";
 import { primaryMembership } from "@/server/auth/rbac";
@@ -27,7 +27,6 @@ export default async function WorkspacePage() {
 
   const data = await getWorkspaceData(membership.organizationId, context.user.id);
   const verified = membership.verificationStatus === "VERIFIED";
-  const activeQuotes = data.quotes.filter((quote) => quote.status === "SENT");
 
   return (
     <SiteShell>

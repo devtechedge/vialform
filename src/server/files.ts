@@ -29,3 +29,8 @@ export function verifyFileToken(token: string): { fileId: string; expiresAtMs: n
 }
 
 export const FILE_TOKEN_TTL_MS = 5 * 60 * 1000;
+
+/** Build a private download URL with a fresh short-lived token. */
+export function signedDownloadUrl(id: string): string {
+  return `/api/files/${id}?token=${signFileToken(id, Date.now() + FILE_TOKEN_TTL_MS)}`;
+}
