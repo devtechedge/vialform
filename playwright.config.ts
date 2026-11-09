@@ -17,7 +17,7 @@ export default defineConfig({
   webServer: {
     command: "pnpm start",
     url: "http://localhost:3000/api/health",
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     timeout: 120_000,
     env: {
       AUTH_SECRET: authSecret,
