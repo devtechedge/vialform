@@ -18,7 +18,8 @@
     "db:migrate": "tsx scripts/migrate.ts",
     "db:seed": "tsx scripts/seed.ts",
     "db:seed:demo": "tsx scripts/seed.ts --demo",
-    "smoke": "tsx scripts/smoke.ts"
+    "smoke": "tsx scripts/smoke.ts",
+    "smoke:prod": "tsx scripts/health.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "0.5.15",
