@@ -227,6 +227,7 @@ export async function seedDemo(db: Database): Promise<void> {
   await db.insert(schema.appMeta).values([
     { key: "sales_paused", value: "false" },
     { key: "kill_switch", value: "false" },
+    { key: "fulfilment_enabled", value: "false" },
     { key: "demo_seeded", value: iso(now).toISOString() },
   ]);
 
