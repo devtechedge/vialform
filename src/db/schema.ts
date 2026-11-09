@@ -4,4 +4,7 @@
  * PGLite demo and production Postgres apply an identical schema.
  */
 export * from "./schema/identity";
+export * from "./schema/catalogue";
+export * from "./schema/compliance";
+export * from "./schema/lots";
 export * from "./schema/system";
