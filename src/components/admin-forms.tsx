@@ -18,7 +18,7 @@ const input = "h-9 rounded-md border border-border bg-bg px-2 text-sm text-ink f
 
 function Btn({ label }: { label: string }) {
   const { pending } = useFormStatus();
-  return <button type="submit" disabled={pending} className="h-9 rounded-md bg-cobalt px-3 text-[13px] font-medium text-white hover:opacity-90 disabled:opacity-60">{pending ? "Working…" : label}</button>;
+  return <button type="submit" disabled={pending} className="h-9 rounded-md bg-cobalt px-3 text-[13px] font-medium text-on-cobalt hover:opacity-90 disabled:opacity-60">{pending ? "Working…" : label}</button>;
 }
 function Note({ state }: { state: ActionState }) {
   if (state.error) return <p role="alert" className="mt-1 text-[12px] text-danger">{state.error}</p>;

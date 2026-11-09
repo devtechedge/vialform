@@ -16,10 +16,10 @@ const NAV = [
 export async function SiteHeader() {
   const user = await getSessionUser();
   return (
-    <header className="sticky top-0 z-30 border-b border-border bg-bg/85 backdrop-blur">
+    <header className="border-b border-border bg-bg">
       <div className="mx-auto w-full max-w-6xl px-5">
         <div className="flex h-16 items-center gap-3">
-          <Link href="/" aria-label="VIALFORM home" className="shrink-0">
+          <Link href="/" aria-label="VIALFORM home" className="inline-flex shrink-0 items-center">
             <Wordmark />
           </Link>
           <form action="/materials" method="get" role="search" className="relative ml-auto hidden min-w-0 flex-1 sm:block sm:max-w-xs">
@@ -36,16 +36,16 @@ export async function SiteHeader() {
           {user ? (
             <div className="flex shrink-0 items-center gap-2">
               {user.staffRole && (
-                <Link href="/admin" className="hidden rounded-md px-3 py-2 text-sm font-medium text-ink-soft hover:text-ink sm:inline">
+                <Link href="/admin" className="hidden rounded-md px-3 py-2 text-sm font-medium text-ink-soft hover:text-ink sm:inline-flex sm:items-center">
                   Admin
                 </Link>
               )}
-              <Link href="/workspace" className="rounded-md bg-cobalt px-3 py-2 text-sm font-medium text-white hover:opacity-90">
+              <Link href="/workspace" className="inline-flex items-center rounded-md bg-cobalt px-3 py-2 text-sm font-medium text-on-cobalt hover:opacity-90">
                 Workspace
               </Link>
             </div>
           ) : (
-            <Link href="/login" className="shrink-0 rounded-md border border-border-strong bg-surface px-3 py-2 text-sm font-medium text-ink hover:border-cobalt">
+            <Link href="/login" className="inline-flex shrink-0 items-center rounded-md border border-border-strong bg-surface px-3 py-2 text-sm font-medium text-ink hover:border-cobalt">
               <span className="hidden sm:inline">Institution access</span>
               <span className="sm:hidden">Sign in</span>
             </Link>
@@ -56,12 +56,12 @@ export async function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium text-ink-soft transition-colors hover:bg-surface-2 hover:text-ink"
+              className="inline-flex items-center whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium text-ink-soft transition-colors hover:bg-surface-2 hover:text-ink"
             >
               {item.label}
             </Link>
           ))}
-          <Link href="/materials" className="whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium text-cobalt hover:bg-surface-2 sm:hidden">
+          <Link href="/materials" className="inline-flex items-center whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium text-cobalt hover:bg-surface-2 sm:hidden">
             Search
           </Link>
         </nav>

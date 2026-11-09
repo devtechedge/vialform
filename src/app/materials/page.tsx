@@ -71,7 +71,7 @@ export default async function MaterialsPage({ searchParams }: { searchParams: Pr
               <input type="checkbox" name="modified" value="1" defaultChecked={modified} className="h-4 w-4 accent-[var(--cobalt)]" />
               Modified
             </label>
-            <button type="submit" className="h-10 rounded-md bg-cobalt px-4 text-sm font-medium text-white hover:opacity-90">Apply</button>
+            <button type="submit" className="h-10 rounded-md bg-cobalt px-4 text-sm font-medium text-on-cobalt hover:opacity-90">Apply</button>
           </div>
         </form>
 
@@ -111,7 +111,7 @@ export default async function MaterialsPage({ searchParams }: { searchParams: Pr
                     <td className="mono px-4 py-3 text-ink-soft">{item.lengthAa !== null ? `${item.lengthAa} aa` : "n/a"}</td>
                     <td className="px-4 py-3"><ApprovalBadge status={item.approvalStatus} /></td>
                     <td className="px-4 py-3 text-right">
-                      <Link href={`/materials/${item.id}?country=${country}`} className="inline-flex items-center gap-1 text-sm font-medium text-cobalt hover:underline">
+                      <Link href={`/materials/${item.id}?country=${country}`} className="inline-flex items-center gap-1 py-1 text-sm font-medium text-cobalt hover:underline">
                         Dossier <ArrowRight size={14} aria-hidden />
                       </Link>
                     </td>

@@ -15,7 +15,7 @@ import {
 function Btn({ label, small = false }: { label: string; small?: boolean }) {
   const { pending } = useFormStatus();
   return (
-    <button type="submit" disabled={pending} className={`rounded-md bg-cobalt font-medium text-white hover:opacity-90 disabled:opacity-60 ${small ? "px-3 py-1.5 text-[13px]" : "px-4 py-2 text-sm"}`}>
+    <button type="submit" disabled={pending} className={`rounded-md bg-cobalt font-medium text-on-cobalt hover:opacity-90 disabled:opacity-60 ${small ? "px-3 py-1.5 text-[13px]" : "px-4 py-2 text-sm"}`}>
       {pending ? "Working…" : label}
     </button>
   );

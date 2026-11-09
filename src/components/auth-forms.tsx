@@ -16,7 +16,7 @@ const labelClass = "mono mb-1 block text-[11px] uppercase tracking-wide text-mut
 function SubmitButton({ label }: { label: string }) {
   const { pending } = useFormStatus();
   return (
-    <button type="submit" disabled={pending} className="h-10 w-full rounded-md bg-cobalt px-4 text-sm font-medium text-white hover:opacity-90 disabled:opacity-60">
+    <button type="submit" disabled={pending} className="h-10 w-full rounded-md bg-cobalt px-4 text-sm font-medium text-on-cobalt hover:opacity-90 disabled:opacity-60">
       {pending ? "Please wait…" : label}
     </button>
   );

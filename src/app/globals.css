@@ -13,6 +13,7 @@
   --border-strong: #b9c2cf;
   --cobalt: #2456e6;
   --cobalt-ink: #1b3fae;
+  --on-cobalt: #ffffff;
   --lime: #3f6600;
   --lime-signal: #a3e635;
   --danger: #c02626;
@@ -31,6 +32,7 @@
   --border-strong: #33445f;
   --cobalt: #6f97ff;
   --cobalt-ink: #9db8ff;
+  --on-cobalt: #0b1220;
   --lime: #b6f04a;
   --lime-signal: #a3e635;
   --danger: #ff6b6b;
@@ -49,6 +51,7 @@
   --color-border-strong: var(--border-strong);
   --color-cobalt: var(--cobalt);
   --color-cobalt-ink: var(--cobalt-ink);
+  --color-on-cobalt: var(--on-cobalt);
   --color-lime: var(--lime);
   --color-lime-signal: var(--lime-signal);
   --color-danger: var(--danger);

@@ -54,7 +54,7 @@ export default function LandingPage() {
               No therapeutic claims. No human or veterinary use.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Link href="/materials" className="inline-flex items-center gap-2 rounded-md bg-cobalt px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90">
+              <Link href="/materials" className="inline-flex items-center gap-2 rounded-md bg-cobalt px-5 py-2.5 text-sm font-medium text-on-cobalt transition-opacity hover:opacity-90">
                 Browse materials <ArrowRight size={16} aria-hidden />
               </Link>
               <a href="#approach" className="inline-flex items-center gap-2 rounded-md border border-border-strong bg-surface px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-cobalt">

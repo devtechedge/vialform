@@ -54,7 +54,7 @@ export default async function DossierPage({ params, searchParams }: { params: Pr
                 <AddToBasketForm productId={product.id} />
               </>
             ) : (
-              <Link href="/login" className="inline-flex items-center gap-2 rounded-md bg-cobalt px-3 py-2 text-sm font-medium text-white hover:opacity-90">
+              <Link href="/login" className="inline-flex items-center gap-2 rounded-md bg-cobalt px-3 py-2 text-sm font-medium text-on-cobalt hover:opacity-90">
                 Sign in to procure
               </Link>
             )}

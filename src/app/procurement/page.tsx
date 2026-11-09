@@ -36,7 +36,7 @@ export default function ProcurementPage() {
             approved and are never purchasable.
           </p>
           <div className="mt-4 flex gap-3">
-            <Link href="/login" className="rounded-md bg-cobalt px-4 py-2 text-sm font-medium text-white hover:opacity-90">Institution access</Link>
+            <Link href="/login" className="rounded-md bg-cobalt px-4 py-2 text-sm font-medium text-on-cobalt hover:opacity-90">Institution access</Link>
             <Link href="/materials" className="rounded-md border border-border-strong bg-surface px-4 py-2 text-sm font-medium text-ink hover:border-cobalt">Browse materials</Link>
           </div>
         </Card>

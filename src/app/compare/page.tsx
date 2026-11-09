@@ -53,7 +53,7 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
                 {available.map((item) => <option key={item.id} value={item.id}>{item.name} ({item.sku})</option>)}
               </select>
             </label>
-            <button type="submit" className="inline-flex h-10 items-center gap-1 rounded-md bg-cobalt px-3 text-sm font-medium text-white hover:opacity-90 disabled:opacity-50" disabled={dossiers.length >= 4}>
+            <button type="submit" className="inline-flex h-10 items-center gap-1 rounded-md bg-cobalt px-3 text-sm font-medium text-on-cobalt hover:opacity-90 disabled:opacity-50" disabled={dossiers.length >= 4}>
               <Plus size={15} aria-hidden /> Add
             </button>
           </form>
