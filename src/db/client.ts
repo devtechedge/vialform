@@ -1,5 +1,6 @@
 import type { PgliteDatabase } from "drizzle-orm/pglite";
-import { getEnv } from "@/env";
+import { getEnv, isDemoMode } from "@/env";
+import { seedDemo } from "@/demo/seed";
 import * as schema from "./schema";
 import { bootstrapPglite } from "./bootstrap";
 
@@ -46,7 +47,9 @@ async function createPglite(): Promise<Database> {
   const client = new PGlite();
   await client.waitReady;
   await bootstrapPglite(client);
-  return drizzle(client, { schema });
+  const db = drizzle(client, { schema });
+  if (isDemoMode()) await seedDemo(db);
+  return db;
 }
 
 async function createDb(): Promise<Database> {
