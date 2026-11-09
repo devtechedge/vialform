@@ -2,6 +2,7 @@ import { desc, eq } from "drizzle-orm";
 import { getDb } from "@/db/client";
 import * as schema from "@/db/schema";
 import { getSystemFlags } from "./system";
+import { expiringApprovals } from "./compliance";
 
 export async function getAdminData() {
   const db = await getDb();
@@ -29,5 +30,6 @@ export async function getAdminData() {
     .from(schema.lots)
     .innerJoin(schema.products, eq(schema.lots.productId, schema.products.id));
   const audit = await db.select().from(schema.auditEvents).orderBy(desc(schema.auditEvents.createdAt)).limit(50);
-  return { flags, approvals, verifications, rfqs, pos, orders, candidates, signals, suppliers, lots, audit };
+  const expiring = await expiringApprovals(30);
+  return { flags, approvals, verifications, rfqs, pos, orders, candidates, signals, suppliers, lots, audit, expiring };
 }

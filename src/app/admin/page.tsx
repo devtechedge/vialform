@@ -54,6 +54,25 @@ export default async function AdminPage() {
           </div>
         </Section>
 
+        <Section title="Expiry alerts (next 30 days)">
+          {data.expiring.length === 0 ? (
+            <p className="text-sm text-ink-soft">No active approvals expire within 30 days.</p>
+          ) : (
+            <div className="space-y-2">
+              {data.expiring.map((approval) => {
+                const product = data.approvals.find((row) => row.approval.id === approval.id)?.product;
+                return (
+                  <Card key={approval.id} className="flex flex-wrap items-center gap-3 p-4">
+                    <span className="text-sm font-medium text-ink">{product?.name ?? approval.productId}</span>
+                    <Badge tone="warn">{approval.country}</Badge>
+                    <span className="mono ml-auto text-[12px] text-warn">expires {approval.expiresAt?.toISOString().slice(0, 10)}</span>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
+        </Section>
+
         <Section title="Institution verification">
           <div className="space-y-2">
             {data.verifications.map(({ request, organization }) => (
