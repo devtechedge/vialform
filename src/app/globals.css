@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #f4f6f9;
+  --surface: #ffffff;
+  --surface-2: #eef1f6;
+  --ink: #0b1220;
+  --ink-soft: #3a4658;
+  --muted: #6b7686;
+  --border: #d7dde6;
+  --border-strong: #b9c2cf;
+  --cobalt: #2456e6;
+  --cobalt-ink: #1b3fae;
+  --lime: #5f8f00;
+  --lime-signal: #a3e635;
+  --danger: #c02626;
+  --warn: #9a6700;
+  --grid: rgba(11, 18, 32, 0.045);
+}
+
+.dark {
+  --bg: #070b14;
+  --surface: #0e1626;
+  --surface-2: #131d31;
+  --ink: #e7ecf4;
+  --ink-soft: #b3bdcd;
+  --muted: #8593a8;
+  --border: #22304a;
+  --border-strong: #33445f;
+  --cobalt: #6f97ff;
+  --cobalt-ink: #9db8ff;
+  --lime: #b6f04a;
+  --lime-signal: #a3e635;
+  --danger: #ff6b6b;
+  --warn: #f0b429;
+  --grid: rgba(231, 236, 244, 0.05);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-cobalt: var(--cobalt);
+  --color-cobalt-ink: var(--cobalt-ink);
+  --color-lime: var(--lime);
+  --color-lime-signal: var(--lime-signal);
+  --color-danger: var(--danger);
+  --color-warn: var(--warn);
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "SFMono-Regular", monospace;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--cobalt);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Precision-instrument calibrated grid background */
+.calibrated-grid {
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "zero", "ss01";
+}
+
+/* Overlay hover-reveal scrollbars on every scroll pane */
+.scroll-pane {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  scrollbar-gutter: stable;
+}
+.scroll-pane::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.scroll-pane::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+.scroll-pane:hover::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  background-clip: content-box;
+}
+.scroll-pane:hover {
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
