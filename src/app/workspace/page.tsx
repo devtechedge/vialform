@@ -150,6 +150,23 @@ export default async function WorkspacePage() {
         </div>
 
         <section>
+          <h2 className="mb-3 text-lg font-semibold text-ink">Saved comparisons</h2>
+          {data.comparisons.length === 0 ? (
+            <p className="text-sm text-ink-soft">No saved comparisons. Use Compare on a dossier to build one.</p>
+          ) : (
+            <div className="space-y-2">
+              {data.comparisons.map((comparison) => (
+                <Card key={comparison.id} className="flex flex-wrap items-center gap-3 p-4">
+                  <span className="text-sm font-medium text-ink">{comparison.name}</span>
+                  <span className="mono text-[12px] text-muted">{comparison.productIds.length} materials</span>
+                  <Link href={`/compare?ids=${comparison.productIds.join(",")}`} className="ml-auto text-sm font-medium text-cobalt hover:underline">Open</Link>
+                </Card>
+              ))}
+            </div>
+          )}
+        </section>
+
+        <section>
           <h2 className="mb-3 text-lg font-semibold text-ink">Orders & shipment</h2>
           {data.orders.length === 0 ? (
             <p className="text-sm text-ink-soft">No orders. Demo mode cannot create orders or invoices; confirmed orders appear here in a live deployment.</p>
