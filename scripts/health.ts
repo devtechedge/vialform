@@ -1,4 +1,6 @@
 /** Production HTTP smoke check across the public surface and health probe. */
+export {};
+
 const base = process.env.APP_URL ?? "https://vialform.vercel.app";
 const paths = ["/api/health", "/", "/materials", "/quality", "/procurement", "/research-notes", "/company", "/contact", "/compare", "/login", "/signup"];
 
