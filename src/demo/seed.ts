@@ -33,12 +33,13 @@ function familyFor(name: string): string {
   return "Research peptide";
 }
 
-const ACTIVE_DEMO = new Set(["GHK-Cu", "Epitalon", "Ipamorelin"]);
+const ACTIVE_DEMO = new Set(["GHK-Cu", "Epitalon", "Ipamorelin", "KPV", "MOTS-c", "GHRP-6"]);
 
 function approvalStatus(name: string, country: string, index: number): ApprovalStatus {
   if (name === "BPC-157" && country === "US") return "REJECTED";
   if (ACTIVE_DEMO.has(name) && country === "US") return "ACTIVE";
-  if (name === "GHK-Cu" && country === "EU") return "JURISDICTION_APPROVED";
+  if (name === "GHK-Cu" && country === "EU") return "ACTIVE";
+  if (name === "Ipamorelin" && country === "IN") return "ACTIVE";
   if (name === "Epitalon" && country === "EU") return "SUSPENDED";
   if (name === "KPV" && country === "IN") return "EXPIRED";
   const cycle: ApprovalStatus[] = ["DISCOVERY", "LEGAL_REVIEW", "DOCUMENT_REVIEW", "LEGAL_REVIEW"];
