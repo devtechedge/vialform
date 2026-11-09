@@ -7,4 +7,6 @@ export * from "./schema/identity";
 export * from "./schema/catalogue";
 export * from "./schema/compliance";
 export * from "./schema/lots";
+export * from "./schema/procurement";
+export * from "./schema/workspace";
 export * from "./schema/system";
