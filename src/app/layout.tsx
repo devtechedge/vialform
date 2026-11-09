@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   description:
     "Institution-facing peptide research procurement. Verified identity, analytical evidence, provenance and jurisdiction eligibility before any request for quote.",
   applicationName: "VIALFORM",
+  icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }] },
   keywords: [
     "peptide research",
     "research procurement",
