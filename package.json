@@ -2,6 +2,7 @@
   "name": "vialform",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@11.22.0",
   "description": "Evidence-first B2B peptide research procurement portal with jurisdiction-gated compliance.",
   "scripts": {
     "dev": "next dev",
