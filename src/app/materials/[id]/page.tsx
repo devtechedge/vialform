@@ -5,6 +5,7 @@ import { Download, GitCompare, ShieldAlert } from "lucide-react";
 import { SiteShell } from "@/components/site-shell";
 import { ApprovalBadge, Badge, Card, DemoBanner, Field, PageHeader } from "@/components/ui";
 import { SyntheticChromatogram, SyntheticSpectrum } from "@/components/analytical-plot";
+import { AddToBasketForm, SaveDossierForm } from "@/components/workspace-forms";
 import { getDossier, jurisdictionLabel } from "@/server/catalogue";
 import { checkEligibility } from "@/server/compliance";
 import { getSessionUser } from "@/server/auth/sessions";
@@ -44,13 +45,20 @@ export default async function DossierPage({ params, searchParams }: { params: Pr
           <ApprovalBadge status={approval?.status ?? "DISCOVERY"} />
           <Badge tone="neutral">{jurisdictionLabel(country)}</Badge>
           {product.isDemo && <Badge tone="warn">Demo record</Badge>}
-          <div className="ml-auto flex gap-2">
+          <div className="ml-auto flex flex-wrap items-center gap-2">
             <Link href={`/compare?add=${product.id}&country=${country}`} className="inline-flex items-center gap-2 rounded-md border border-border-strong bg-surface px-3 py-2 text-sm font-medium text-ink hover:border-cobalt">
               <GitCompare size={15} aria-hidden /> Compare
             </Link>
-            <Link href={user ? `/procurement?product=${product.id}&country=${country}` : "/login"} className="inline-flex items-center gap-2 rounded-md bg-cobalt px-3 py-2 text-sm font-medium text-white hover:opacity-90">
-              {user ? "Request quote" : "Sign in to procure"}
-            </Link>
+            {user ? (
+              <>
+                <SaveDossierForm productId={product.id} />
+                <AddToBasketForm productId={product.id} />
+              </>
+            ) : (
+              <Link href="/login" className="inline-flex items-center gap-2 rounded-md bg-cobalt px-3 py-2 text-sm font-medium text-white hover:opacity-90">
+                Sign in to procure
+              </Link>
+            )}
           </div>
         </div>
 
