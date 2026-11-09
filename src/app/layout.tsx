@@ -5,6 +5,7 @@ import "./globals.css";
 import { themeInitScript } from "@/components/theme";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.APP_URL ?? "https://vialform.vercel.app"),
   title: {
     default: "VIALFORM | Evidence before procurement",
     template: "%s | VIALFORM",
@@ -13,6 +14,12 @@ export const metadata: Metadata = {
     "Institution-facing peptide research procurement. Verified identity, analytical evidence, provenance and jurisdiction eligibility before any request for quote.",
   applicationName: "VIALFORM",
   icons: { icon: [{ url: "/favicon.svg", type: "image/svg+xml" }] },
+  openGraph: {
+    title: "VIALFORM | Evidence before procurement",
+    description: "Jurisdiction-gated scientific procurement for verified institutions. Research use only.",
+    type: "website",
+    images: [{ url: "/og.png", width: 1280, height: 640 }],
+  },
   keywords: [
     "peptide research",
     "research procurement",
