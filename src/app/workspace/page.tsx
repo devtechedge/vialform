@@ -33,6 +33,9 @@ export default async function WorkspacePage() {
       <PageHeader eyebrow="Buyer workspace" title={membership.organizationName} description={`Signed in as ${context.user.fullName}. Country ${membership.country} · delivery ${membership.deliveryCountry}.`} />
       <div className="mx-auto w-full max-w-6xl space-y-8 px-5 py-8">
         <DemoBanner />
+        <div className="flex justify-end">
+          <Link href="/api/workspace/export.csv" className="rounded-md border border-border-strong bg-surface px-3 py-2 text-sm font-medium text-ink hover:border-cobalt">Export workspace CSV</Link>
+        </div>
 
         <Card className="p-5">
           <div className="flex flex-wrap items-center gap-3">
