@@ -18,9 +18,9 @@ await shot("/", "01-landing.png");
 await shot("/materials", "02-materials.png");
 
 await page.goto(base + "/materials?q=GHK", { waitUntil: "networkidle" });
-await page.getByRole("link", { name: "GHK-Cu" }).first().click();
-await page.getByRole("heading", { name: "Verified identity" }).waitFor();
-await page.waitForLoadState("networkidle");
+const href = await page.getByRole("link", { name: "GHK-Cu" }).first().getAttribute("href");
+await page.goto(base + (href ?? "/materials"), { waitUntil: "networkidle" });
+await page.getByRole("heading", { name: "Verified identity" }).waitFor({ timeout: 60_000 });
 await page.screenshot({ path: `${out}/03-dossier.png`, fullPage: true });
 console.log("captured 03-dossier.png");
 
