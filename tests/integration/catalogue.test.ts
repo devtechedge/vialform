@@ -41,3 +41,18 @@ describe("expiry alerts", () => {
     expect((await expiringApprovals(365)).length).toBeGreaterThan(0);
   });
 });
+
+describe("length and documents filters", () => {
+  it("filters by amino-acid length bucket", async () => {
+    const short = await listEligibleProducts({ country: "US", length: "1-10" });
+    expect(short.length).toBeGreaterThan(0);
+    expect(short.every((item) => item.lengthAa !== null && item.lengthAa <= 10)).toBe(true);
+    expect(short.some((item) => item.name === "GHK-Cu")).toBe(true);
+  });
+
+  it("filters to materials that have analytical documents", async () => {
+    const withDocs = await listEligibleProducts({ country: "US", documents: true });
+    expect(withDocs.length).toBeGreaterThan(0);
+    expect(withDocs.some((item) => item.name === "GHK-Cu")).toBe(true);
+  });
+});
