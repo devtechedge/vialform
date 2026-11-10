@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { ArrowRight, Search } from "lucide-react";
 import { SiteShell } from "@/components/site-shell";
 import { ApprovalBadge, Badge, DemoBanner, EmptyState, PageHeader } from "@/components/ui";
-import { catalogueFacets, JURISDICTIONS, jurisdictionLabel, listEligibleProducts } from "@/server/catalogue";
+import { catalogueFacets, JURISDICTIONS, jurisdictionLabel, LENGTH_BUCKETS, listEligibleProducts } from "@/server/catalogue";
 import { MOLECULE_TYPES } from "@/domain/enums";
 
 export const metadata: Metadata = { title: "Materials" };
@@ -23,8 +23,10 @@ export default async function MaterialsPage({ searchParams }: { searchParams: Pr
   const family = param(sp, "family");
   const moleculeType = param(sp, "type");
   const modified = sp.modified === "1";
+  const length = param(sp, "length");
+  const documents = sp.documents === "1";
   const [items, facets] = await Promise.all([
-    listEligibleProducts({ country, q, family, moleculeType, modified }),
+    listEligibleProducts({ country, q, family, moleculeType, modified, length, documents }),
     catalogueFacets(country),
   ]);
 
@@ -40,7 +42,7 @@ export default async function MaterialsPage({ searchParams }: { searchParams: Pr
           Eligibility shown here uses synthetic demonstration approvals, not regulatory determinations. Demo mode cannot order or invoice.
         </DemoBanner>
 
-        <form action="/materials" method="get" className="mb-6 grid gap-3 rounded-xl border border-border bg-surface p-4 sm:grid-cols-2 lg:grid-cols-6">
+        <form action="/materials" method="get" className="mb-6 grid gap-3 rounded-xl border border-border bg-surface p-4 sm:grid-cols-2 lg:grid-cols-7">
           <label className="relative sm:col-span-2 lg:col-span-2">
             <span className="sr-only">Search materials</span>
             <Search size={15} aria-hidden className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
@@ -66,10 +68,21 @@ export default async function MaterialsPage({ searchParams }: { searchParams: Pr
               {MOLECULE_TYPES.map((value) => <option key={value} value={value}>{value}</option>)}
             </select>
           </label>
+          <label className="flex flex-col gap-1">
+            <span className="mono text-[11px] uppercase tracking-wide text-muted">Length</span>
+            <select name="length" defaultValue={length ?? ""} className="h-10 rounded-md border border-border bg-bg px-2 text-sm text-ink focus:border-cobalt focus:outline-none">
+              <option value="">Any length</option>
+              {LENGTH_BUCKETS.map((bucket) => <option key={bucket.value} value={bucket.value}>{bucket.label}</option>)}
+            </select>
+          </label>
           <div className="flex items-end gap-3">
             <label className="flex h-10 items-center gap-2 text-sm text-ink-soft">
-              <input type="checkbox" name="modified" value="1" defaultChecked={modified} className="h-4 w-4 accent-[var(--cobalt)]" />
+              <input type="checkbox" name="modified" value="1" defaultChecked={modified} className="h-6 w-6 accent-[var(--cobalt)]" />
               Modified
+            </label>
+            <label className="flex h-10 items-center gap-2 text-sm text-ink-soft">
+              <input type="checkbox" name="documents" value="1" defaultChecked={documents} className="h-6 w-6 accent-[var(--cobalt)]" />
+              Docs
             </label>
             <button type="submit" className="h-10 rounded-md bg-cobalt px-4 text-sm font-medium text-on-cobalt hover:opacity-90">Apply</button>
           </div>

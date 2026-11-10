@@ -32,7 +32,7 @@ export default async function DossierPage({ params, searchParams }: { params: Pr
   const country = typeof sp.country === "string" ? sp.country : "US";
   const dossier = await getDossier(id, country);
   if (!dossier) notFound();
-  const { product, aliases, candidate, approval, lots, documents } = dossier;
+  const { product, aliases, candidate, approval, lots, documents, reviewerNames } = dossier;
   const eligibility = await checkEligibility(id, country);
   const user = await getSessionUser();
 
@@ -142,6 +142,7 @@ export default async function DossierPage({ params, searchParams }: { params: Pr
                           <th className="mono py-2 pr-4 text-[11px] uppercase tracking-wide text-muted">Document</th>
                           <th className="mono py-2 pr-4 text-[11px] uppercase tracking-wide text-muted">Origin</th>
                           <th className="mono py-2 pr-4 text-[11px] uppercase tracking-wide text-muted">Method / date</th>
+                          <th className="mono py-2 pr-4 text-[11px] uppercase tracking-wide text-muted">Reviewer</th>
                           <th className="mono py-2 pr-4 text-[11px] uppercase tracking-wide text-muted">SHA-256</th>
                           <th className="py-2" />
                         </tr>
@@ -152,6 +153,7 @@ export default async function DossierPage({ params, searchParams }: { params: Pr
                             <td className="py-2 pr-4 font-medium text-ink">{doc.kind}{doc.isDemo && <span className="mono ml-2 text-[11px] text-warn">SYNTHETIC DEMO - NOT VALID</span>}</td>
                             <td className="mono py-2 pr-4 text-[12px] text-ink-soft">{doc.origin}</td>
                             <td className="py-2 pr-4 text-ink-soft">{doc.method ?? "n/a"}{doc.assayDate ? ` · ${doc.assayDate.toISOString().slice(0, 10)}` : ""}</td>
+                            <td className="py-2 pr-4 text-ink-soft">{doc.reviewerId ? (reviewerNames[doc.reviewerId] ?? "Unassigned") : "Unreviewed"}</td>
                             <td className="mono py-2 pr-4 text-[11px] text-muted">{doc.sha256.slice(0, 12)}…</td>
                             <td className="py-2 text-right">
                               <a href={signedDownloadUrl(doc.id)} className="inline-flex items-center gap-1 text-sm font-medium text-cobalt hover:underline">

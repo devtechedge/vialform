@@ -18,8 +18,24 @@ export type CatalogueFilters = {
   family?: string;
   moleculeType?: string;
   modified?: boolean;
+  length?: string;
+  documents?: boolean;
   country: string;
 };
+
+export const LENGTH_BUCKETS = [
+  { value: "1-10", label: "1-10 aa" },
+  { value: "11-30", label: "11-30 aa" },
+  { value: "31+", label: "31+ aa" },
+] as const;
+
+function inLengthBucket(lengthAa: number | null, bucket: string): boolean {
+  if (lengthAa === null) return false;
+  if (bucket === "1-10") return lengthAa >= 1 && lengthAa <= 10;
+  if (bucket === "11-30") return lengthAa >= 11 && lengthAa <= 30;
+  if (bucket === "31+") return lengthAa >= 31;
+  return true;
+}
 
 export type CatalogueItem = {
   id: string;
@@ -93,6 +109,14 @@ export async function listEligibleProducts(filters: CatalogueFilters): Promise<C
       return haystack.includes(query);
     });
   }
+  if (filters.documents) {
+    const lotRows = await db.select({ id: schema.lots.id, productId: schema.lots.productId }).from(schema.lots);
+    const docRows = await db.select({ lotId: schema.lotDocuments.lotId }).from(schema.lotDocuments);
+    const docLotIds = new Set(docRows.map((row) => row.lotId));
+    const withDocs = new Set(lotRows.filter((lot) => docLotIds.has(lot.id)).map((lot) => lot.productId));
+    items = items.filter((item) => withDocs.has(item.id));
+  }
+  if (filters.length) items = items.filter((item) => inLengthBucket(item.lengthAa, filters.length!));
   if (filters.family) items = items.filter((item) => item.family === filters.family);
   if (filters.moleculeType) items = items.filter((item) => item.moleculeType === filters.moleculeType);
   if (filters.modified) items = items.filter((item) => item.modifications !== null);
@@ -115,6 +139,7 @@ export type Dossier = {
   approval: typeof schema.jurisdictionApprovals.$inferSelect | null;
   lots: Array<typeof schema.lots.$inferSelect>;
   documents: Array<typeof schema.lotDocuments.$inferSelect>;
+  reviewerNames: Record<string, string>;
 };
 
 export async function getDossier(productId: string, country: string): Promise<Dossier | null> {
@@ -132,7 +157,12 @@ export async function getDossier(productId: string, country: string): Promise<Do
   const lots = await db.select().from(schema.lots).where(eq(schema.lots.productId, productId));
   const lotIds = lots.map((lot) => lot.id);
   const documents = lotIds.length > 0 ? await db.select().from(schema.lotDocuments).where(inArray(schema.lotDocuments.lotId, lotIds)) : [];
-  return { product, aliases: aliasRows.map((row) => row.alias), candidate, approval: approval ?? null, lots, documents };
+  const reviewerIds = [...new Set(documents.map((doc) => doc.reviewerId).filter((id): id is string => id !== null))];
+  const reviewerRows = reviewerIds.length > 0
+    ? await db.select({ id: schema.users.id, fullName: schema.users.fullName }).from(schema.users).where(inArray(schema.users.id, reviewerIds))
+    : [];
+  const reviewerNames = Object.fromEntries(reviewerRows.map((row) => [row.id, row.fullName]));
+  return { product, aliases: aliasRows.map((row) => row.alias), candidate, approval: approval ?? null, lots, documents, reviewerNames };
 }
 
 export async function getProductBySku(sku: string): Promise<typeof schema.products.$inferSelect | null> {
