@@ -7,6 +7,7 @@ import { ApprovalBadge, Badge, Card, DemoBanner, PageHeader } from "@/components
 import { ConfirmOrderForm, IssueQuoteForm, ReviewPoForm, ShipmentForm, SystemFlagForm, TransitionApprovalForm, VerificationForm } from "@/components/admin-forms";
 import { getSessionUser } from "@/server/auth/sessions";
 import { getAdminData } from "@/server/admin";
+import { signedDownloadUrl } from "@/server/files";
 import { formatMoney } from "@/domain/money";
 
 export const metadata: Metadata = { title: "Admin" };
@@ -139,6 +140,37 @@ export default async function AdminPage() {
                 <div className="ml-auto"><ShipmentForm orderId={order.id} /></div>
               </Card>
             ))}
+          </div>
+        </Section>
+
+        <Section title="Suppliers, lots & stock">
+          <div className="mb-4 grid gap-3 sm:grid-cols-2">
+            {data.suppliers.map((supplier) => (
+              <Card key={supplier.id} className="p-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium text-ink">{supplier.name}</span>
+                  <Badge tone={supplier.qualificationStatus === "QUALIFIED" ? "lime" : "warn"}>{supplier.qualificationStatus}</Badge>
+                </div>
+                <p className="mono mt-1 text-[12px] text-muted">{supplier.country} · {supplier.licenseNumber ?? "no licence"}</p>
+              </Card>
+            ))}
+          </div>
+          <div className="scroll-pane overflow-x-auto rounded-xl border border-border">
+            <table className="w-full min-w-[720px] text-sm">
+              <thead><tr className="border-b border-border bg-surface-2 text-left"><th className="mono px-3 py-2 text-[11px] uppercase tracking-wide text-muted">Lot</th><th className="mono px-3 py-2 text-[11px] uppercase tracking-wide text-muted">Product</th><th className="mono px-3 py-2 text-[11px] uppercase tracking-wide text-muted">Status</th><th className="mono px-3 py-2 text-[11px] uppercase tracking-wide text-muted">Expires</th><th className="mono px-3 py-2 text-[11px] uppercase tracking-wide text-muted">Available</th><th className="mono px-3 py-2 text-[11px] uppercase tracking-wide text-muted">COA</th></tr></thead>
+              <tbody>
+                {data.lots.map(({ lot, product }) => (
+                  <tr key={lot.id} className="border-b border-border bg-surface last:border-0">
+                    <td className="mono px-3 py-2 text-ink">{lot.lotNumber}</td>
+                    <td className="px-3 py-2 text-ink-soft">{product.name}</td>
+                    <td className="px-3 py-2"><Badge tone={lot.status === "RELEASED" ? "lime" : "neutral"}>{lot.status}</Badge></td>
+                    <td className="mono px-3 py-2 text-[12px] text-ink-soft">{lot.expiryDate ? lot.expiryDate.toISOString().slice(0, 10) : "n/a"}</td>
+                    <td className="mono px-3 py-2 text-ink-soft">{lot.quantityMinor - lot.reservedMinor} {lot.unit}</td>
+                    <td className="px-3 py-2">{lot.primaryCoaId ? <a href={signedDownloadUrl(lot.primaryCoaId)} className="text-sm font-medium text-cobalt hover:underline">COA</a> : <span className="text-muted">—</span>}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </Section>
 
